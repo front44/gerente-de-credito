@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Cliente{
 char nome[100];
@@ -17,6 +18,7 @@ int totalClientes = 0;
 
 void cadastrarCliente();
 void listarClientes();
+void buscarClientes();
 
 int main(){
   int opcao_menu;
@@ -32,6 +34,7 @@ int main(){
     printf ("!!!Sistema de emprestimos iniciado!!!\n\n");
     printf ("1 - Cadastrar Cliente\n");
     printf("2 - listar clientes\n");
+    printf("3 - Buscar clientes\n");
     printf("0 - Sair\n\n");
     printf("Escolha: ");
 
@@ -51,6 +54,12 @@ int main(){
       listarClientes();
         break;
 
+    case 3:
+      printf("Buscar Clientes\n");
+      sleep(1);
+      buscarClientes();
+        break;
+
      case 0 :
       printf("Saindo...\n");
       sleep(1);
@@ -58,29 +67,32 @@ int main(){
     }
     
    
-} while (opcao_menu != 0);
+  } while (opcao_menu != 0);
 
 return(0);
 }
 
-void cadastrarCliente(){
+void cadastrarCliente()
+{
   system("clear");
   printf("---Cadastro de Cliente---\n\n");
   printf("Digite os dados do cliente:\n");
+
   printf("Nome:\n");
   getchar();
   fgets(Clientes[totalClientes].nome, 100, stdin);
+
   printf("CPF:\n");
   scanf("%s", Clientes[totalClientes].cpf);
   getchar();
+
   printf("telefone:\n");
-  getchar();
   fgets(Clientes[totalClientes].telefone, 50, stdin);
+
   printf("Endereço:\n");
-  getchar();
   fgets(Clientes[totalClientes].endereco, 100, stdin);
+
   printf("telefone de emergencia:\n");
-  getchar();
   fgets(Clientes[totalClientes].telefoneEmergencial, 50, stdin);
 
   totalClientes++;
@@ -106,7 +118,36 @@ void listarClientes(){
     printf("Limite de credito: %d\n" , Clientes[i].limiteCredito);
   
   }
+   getchar();
+   getchar();
+}
 
-  getchar();
-  getchar();
+void buscarClientes(){
+    char CPFbusca[50];
+
+    system("clear");
+    printf("---BUSCAR CLIENTE PELO CPF---\n\n");
+
+    printf("Digite o CPF do cliente:\n");
+    scanf("%s" , CPFbusca);
+
+     for (int i = 0; i < totalClientes; i++) 
+     {
+       if (strcmp(CPFbusca , Clientes[i].cpf) == 0 )
+        {
+          printf("\nCliente encontrado!\n\n");
+          printf("Nome: %s", Clientes[i].nome);
+          printf("CPF: %s\n", Clientes[i].cpf);
+          printf("Telefone: %s", Clientes[i].telefone);
+          printf("Endereco: %s", Clientes[i].endereco);
+          printf("Telefone emergencia: %s", Clientes[i].telefoneEmergencial);
+
+            getchar();
+            getchar();
+            return;
+        }
+     }   
+     printf("\nCliente nao encontrado!\n");
+    getchar();
+    getchar();
 }
