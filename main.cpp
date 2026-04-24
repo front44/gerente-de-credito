@@ -19,6 +19,7 @@ int totalClientes = 0;
 void cadastrarCliente();
 void listarClientes();
 void buscarClientes();
+void removerClientes();
 
 int main(){
   int opcao_menu;
@@ -35,6 +36,7 @@ int main(){
     printf ("1 - Cadastrar Cliente\n");
     printf("2 - listar clientes\n");
     printf("3 - Buscar clientes\n");
+    printf("4 - Remover clientes\n");
     printf("0 - Sair\n\n");
     printf("Escolha: ");
 
@@ -54,10 +56,16 @@ int main(){
       listarClientes();
         break;
 
-    case 3:
+     case 3:
       printf("Buscar Clientes\n");
       sleep(1);
       buscarClientes();
+        break;
+        
+     case 4:
+      printf("Buscar Cliente para remover\n");
+      sleep(1);
+      removerClientes();
         break;
 
      case 0 :
@@ -150,4 +158,32 @@ void buscarClientes(){
      printf("\nCliente nao encontrado!\n");
     getchar();
     getchar();
+}
+
+void removerClientes(){
+   char CPFbusca[50];
+
+   system("clear");
+   printf("---Remover Clientes---\n\n");
+   printf("Digirte o CPF do cliente desejado:\n");
+   scanf("%s" , CPFbusca);
+
+  for (int i = 0; i < totalClientes; i++)
+  {
+     if (strcmp(CPFbusca, Clientes[i].cpf)== 0)
+     {
+        for (int j = i; j < totalClientes - 1; j++)
+        {
+          Clientes[j] = Clientes[j + 1];
+        }
+        totalClientes--;
+        printf("\nCliente removido com sucesso!\n");
+        getchar();
+        getchar();
+        return;
+     }
+  }
+  printf("\nCliente nao encontrado!\n");
+  getchar();
+  getchar();
 }
